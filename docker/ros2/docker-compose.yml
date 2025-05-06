@@ -12,6 +12,7 @@ services:
       - PYTHONPATH=/${WORKING_DIRECTORY}:/${WORKING_DIRECTORY}/src:/${WORKING_DIRECTORY}/jssp
       - JUPYTER_PORT=${JUPYTER_PORT}
       - RESOLUTION=1920x1080
+      - WANDB_API_KEY=${WANDB_API_KEY}
 
     # Fix slow shutdown of web container
     init: true
