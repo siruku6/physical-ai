@@ -35,7 +35,8 @@ WORKDIR /${WORKING_DIRECTORY}
 
 # Install pip modules
 COPY ./docker/ros2/requirements.txt ./
-# RUN pip install -Ur requirements.txt
+RUN apt -y remove python3-blinker
+RUN pip install -r requirements.txt
 
 # # NOTE: pytorch family
 # RUN pip3 install torch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 --index-url https://download.pytorch.org/whl/cpu
