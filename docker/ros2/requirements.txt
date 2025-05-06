@@ -8,6 +8,7 @@ numpy==1.26.4
 opencv-python==4.6.0.66
 pandas==2.2.3
 Pillow==9.2.0
+pybullet==3.2.7
 pytest==8.0.0
 ray[tune]==2.20.0
 scipy==1.13.1
