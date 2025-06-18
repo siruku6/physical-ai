@@ -4,14 +4,27 @@
 FROM airobotbook/ros2-desktop-ai-robot-book-humble:latest
 
 
-RUN apt -y update
+# ----------------------------------------------------------------------------------
+# E: The repository 'http://packages.ros.org/ros/ubuntu focal InRelease' is not signed. への対処
+# https://zenn.dev/tiryoh/articles/2025-06-02-ros-noetic-apt-get-update
+# ----------------------------------------------------------------------------------
+RUN \
+    rm -rf /etc/apt/sources.list.d/ros2-latest.list && \
+    rm -rf /etc/apt/sources.list.d/ros2.list && \
+    rm -rf /etc/apt/sources.list.d/ros2.sources
+RUN apt -y update -q && apt -yq install --no-install-recommends curl
+RUN \
+    curl -sS https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $( . /etc/os-release && echo $UBUNTU_CODENAME ) main" > /etc/apt/sources.list.d/ros2.list
+
+
 # && apt -y upgrade
 RUN export DEBIAN_FRONTEND=noninteractive \
     && apt -y install --no-install-recommends \
     # # Necessary for pip install
     # gcc g++ libc-dev \
     # For development and debug (procps: `free -h`)
-    bash curl git net-tools vim procps \
+    bash git net-tools vim procps \
     # # For scikit-learn (scipy)
     # gfortran libopenblas-dev liblapack-dev \
     # # For opencv-python

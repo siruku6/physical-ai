@@ -6,7 +6,7 @@ services:
       dockerfile: ./docker/ros2/Dockerfile
       args:
         WORKING_DIRECTORY: ${WORKING_DIRECTORY}
-    container_name: ros2_docker_practice
+    container_name: pai_ros2
     environment:
       - TZ=Asia/Tokyo
       - PYTHONPATH=/${WORKING_DIRECTORY}:/${WORKING_DIRECTORY}/src:/${WORKING_DIRECTORY}/jssp
@@ -24,6 +24,8 @@ services:
       - ${TENSORBOARD_PORT}:${TENSORBOARD_PORT}
       - 15900:5900
       - 13389:3389
+      - 9876:9876
+      - 9090:9090
       - 6080:80
 
     # INFO: Following two lines are necessary for the backtrace by pdb
